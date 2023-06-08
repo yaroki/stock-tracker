@@ -4,7 +4,7 @@ namespace App\Client;
 
 use App\Models\Stock;
 
-interface Target
+interface Client
 {
    public function checkAvailability(Stock $stock);
 }

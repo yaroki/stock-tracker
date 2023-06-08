@@ -11,12 +11,20 @@ class Stock extends Model
     protected $guarded = [];
     use HasFactory;
 
-    public function retailer(){
+    public function retailer()
+    {
         return $this->belongsTo(Retailer::class);
     }
 
-    public function track(){
+    public function product()
+    {
+        return $this->hasMany(Retailer::class);
+    }
+
+    public function track($callback = null)
+    {
         $result = $this->retailer->client()->checkAvailability($this);
         $this->update(['price' => $result->price, 'in_stock' => $result->available]);
+        $callback && $callback($this);
     }
 }

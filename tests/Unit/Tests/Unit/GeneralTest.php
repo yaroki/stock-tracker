@@ -12,6 +12,6 @@ class GeneralTest extends TestCase
 
     public function it_checks_stock_for_products_at_retailers(){
         $this->seed(RetailerWithProducts::class);
-        $this->assetTrue(Product::first()->inStock());
+        $this->assetFalse(Product::first()->inStock());
     }
 }
