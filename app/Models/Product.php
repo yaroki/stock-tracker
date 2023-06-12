@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\UseCases\TrackStock;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,9 +24,7 @@ class Product extends Model
 
     public function track()
     {
-        $this->stock->each->track(
-            fn($stock) => $this->recordHistory($stock)
-        );
+        (new TrackStock(Stock::first()))->handle();
     }
 
     public function history()

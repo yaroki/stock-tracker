@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Events\NowInStock;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,23 +11,17 @@ class Stock extends Model
     protected $guarded = [];
     use HasFactory;
 
+    protected $casts = [
+        'in_stock' => 'boolean'
+    ];
+
     public function retailer()
     {
         return $this->belongsTo(Retailer::class);
     }
 
-    public function product()
+    public function products()
     {
-        return $this->hasMany(Retailer::class);
-    }
-
-    public function track($callback = null)
-    {
-        $result = $this->retailer->client()->checkAvailability($this);
-        if ($result->available && !$this->in_stock) {
-            event(new NowInStock($this));
-        }
-        $this->update(['price' => $result->price, 'in_stock' => $result->available]);
-        $callback && $callback($this);
+        return $this->hasMany(Product::class, 'id');
     }
 }

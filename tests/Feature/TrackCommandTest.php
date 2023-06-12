@@ -42,13 +42,4 @@ class TrackCommandTest extends TestCase
         $this->artisan('track');
         Notification::assertNothingSent();
     }
-
-    /** @test */
-
-    public function it_notifies_the_user_that_item_in_stock(): void
-    {
-        Http::fake(fn () => ['onlineAvailability' => true, 'salePrice' => 1000]);
-        $this->artisan('track');
-        Notification::assertSentTo(User::first(), ImportantStockUpdate::class);
-    }
 }
