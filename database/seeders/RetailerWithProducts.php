@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Product;
 use App\Models\Retailer;
 use App\Models\Stock;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -23,5 +24,6 @@ class RetailerWithProducts extends Seeder
             'sku' => '12345',
             'in_stock' => false
         ]));
+        User::factory()->create();
     }
 }
